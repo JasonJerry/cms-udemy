@@ -15,7 +15,7 @@
                     <div class="col-lg-12">
                         <h1 class="page-header">
                             Welcome to Admin Panel
-                            <small>Author</small>
+                            <small>Jason</small>
                         </h1>
                     
                             <div class="col-xs-6">
@@ -69,15 +69,8 @@
                             findAllCategories();
                         ?>
                              <?php // delete query
-                                if(isset($_GET['delete']))
-                                {
-                                    $cat_id_del = $_GET['delete'];
-                                    echo $cat_id_del;
-                                    $query = "DELETE FROM categories WHERE cat_id = {$cat_id_del} ";
-                                    $delete_query = mysqli_query($connection, $query);
-                                    header("Location: categories.php");
-                                } 
-                             
+                                
+                             deleteCategories();
                              
                             ?>   
                                 

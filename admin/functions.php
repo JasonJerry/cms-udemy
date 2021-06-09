@@ -51,4 +51,17 @@ function findAllCategories()
     }
 }
 
+
+function deleteCategories()
+{
+    global $connection;
+    if(isset($_GET['delete']))
+    {
+        $cat_id_del = $_GET['delete'];
+        echo $cat_id_del;
+        $query = "DELETE FROM categories WHERE cat_id = {$cat_id_del} ";
+        $delete_query = mysqli_query($connection, $query);
+        header("Location: categories.php");
+    } 
+}
 ?>
