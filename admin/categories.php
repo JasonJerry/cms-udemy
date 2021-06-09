@@ -1,6 +1,6 @@
-<?php include "includes/header.php" ?>
+<?php include "includes/admin_header.php" ?>
 
-<?php include "includes/navigation.php" ?>
+<?php include "includes/admin_navigation.php" ?>
     <div id="wrapper">
 
         <!-- Navigation -->
@@ -32,6 +32,23 @@
                             </form>
                             
                             </div>
+
+                            <div class="col-xs-6">
+                            <table class="table table-bordered table-hover">
+                                <thread>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Category Title</th>
+                                    </tr>
+                                </thread>
+                                <tbody>
+                                <tr>
+                                <td>Baseball Category</td>
+                                <td>Cricket Category</td>
+                                </tr>
+                                
+                                </tbody>
+                            </table></div>
                     </div>
                 </div>
                 <!-- /.row -->
@@ -43,4 +60,4 @@
         <!-- /#page-wrapper -->
 
    
-<?php include "includes/footer.php" ?>
+<?php include "includes/admin_footer.php" ?>
