@@ -2,7 +2,10 @@
 
 <?php include "includes/navigation.php" ?>
     <div id="wrapper">
-
+<?php if($connection)
+{
+    echo "works";
+} ?>
         <!-- Navigation -->
         
 
