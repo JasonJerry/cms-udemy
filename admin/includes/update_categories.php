@@ -1,5 +1,5 @@
 <form action="" method="post">
-                            
+                          
                             <div class="form-group">
                             <label for="cat-title">Update Category </label>
 
@@ -40,3 +40,4 @@
                             <input class="btn btn-primary" type="submit" name="update_category" value="Update">
                             </div>
                             </form>
+                            

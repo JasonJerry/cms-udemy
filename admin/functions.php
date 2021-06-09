@@ -33,8 +33,6 @@ function insert_categories()
         }
 
 }
-
-
 function findAllCategories()
 {
     global $connection;
