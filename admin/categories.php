@@ -66,7 +66,7 @@
                                 <tbody>
 
                             <?php //find all categories query
-                            
+                            findAllCategories();
                         ?>
                              <?php // delete query
                                 if(isset($_GET['delete']))
