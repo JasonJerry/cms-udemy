@@ -1,3 +1,4 @@
+
 <?php if(isset($_POST['create_post']))
 {
     $post_title        = $_POST['title'];
@@ -11,7 +12,7 @@
     $post_date         = date('d-m-y');
     $post_comment_count = 4;
     //echo $post_image;
-    move_uploaded_file($post_image_temp, "images/$post_image" );
+    move_uploaded_file($post_image_temp, "../images/$post_image" );
 
 
     $query = "INSERT INTO posts(post_category_id, post_title, post_author, post_date,post_image,post_content,post_tags,post_status) ";
