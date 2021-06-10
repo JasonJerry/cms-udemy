@@ -40,8 +40,8 @@
         echo "<td>{$post_tags}</td>";
         echo "<td>{$post_comment_count}</td>";
         echo "<td>{$post_date}</td>";
-        echo "</tr>";                             
-    }
+        echo "</tr>"; 
+        }
     
     
     ?>
