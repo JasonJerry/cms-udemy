@@ -29,6 +29,7 @@
         $post_tags = $row['post_tags'];
         $post_comment_count = $row['post_comment_count'];
         $post_date = $row['post_date'];
+        $post_content =$row['post_content'];
 
         echo "<tr>";  
         echo "<td>{$post_id}</td>"; 
@@ -40,9 +41,10 @@
         echo "<td>{$post_tags}</td>";
         echo "<td>{$post_comment_count}</td>";
         echo "<td>{$post_date}</td>";
+        echo "<td><a href=posts.php?source=edit_post&p_id={$post_id}>Edit</a></td>";
         echo "<td><a href=posts.php?delete={$post_id}>Delete</a></td>";
         echo "</tr>"; 
-        }
+    }
     
     
     ?>
