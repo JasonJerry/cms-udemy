@@ -119,7 +119,7 @@
                 $comment_content= $row['comment_content'];
                 $comment_author = $row['comment_author'];
                     
-                    ?>
+                ?>
                 <!-- Comment -->
                 <div class="media">
                     <a class="pull-left" href="#">
