@@ -14,7 +14,7 @@ if(isset($_POST['create_post']))
 
     $post_tags         = $_POST['post_tags'];
     $post_content      = $_POST['post_content'];
-    $post_date         = date('d-m-y');
+    $post_date         = date('dd-mm-yy');
     //$post_comment_count = 4;
 
 

@@ -30,7 +30,7 @@
         $post_image = $row['post_image'];
         $post_tags = $row['post_tags'];
         $post_comment_count = $row['post_comment_count'];
-        $post_date = $row['post_date'];
+        $post_date = strtotime($row['post_date']); // converted to mm/dd/yyyy 
         $post_content =$row['post_content'];
 
         echo "<tr>";  
@@ -51,12 +51,29 @@
 
         }
 
-
-        echo "<td>{$post_status}</td>";
+        if ($post_status == 'Approved')
+        {
+            echo "<td>";
+            echo '<span style="color:green;text-align:center;">APPROVED</span>';
+            echo "</td>";
+        }
+        if ($post_status == 'Published')
+        {
+            echo "<td>";
+            echo '<span style="color:red;text-align:center;">PUBLISHED</span>';
+            echo "</td>";
+        }
+        //echo "<td>{$post_status}</td>";
+        
         echo "<td><img width=200 src='../images/{$post_image}'></td>";
         echo "<td>{$post_tags}</td>";
         echo "<td>{$post_comment_count}</td>";
-        echo "<td>{$post_date}</td>";
+
+        echo "<td>";
+        echo date('d/m/Y', $post_date);
+        echo "</td>";
+        //echo "<td>{$post_date}</td>";
+
         echo "<td><a href='posts.php?source=edit_post&p_id={$post_id}'>Edit</a></td>";
         echo "<td><a href='posts.php?delete={$post_id}'>Delete</a></td>";
         echo "</tr>"; 
@@ -80,3 +97,10 @@ if(isset($_GET['delete']))
 }
 
 ?>
+
+
+<!-- 
+
+PS for date:
+
+    https://www.tutorialspoint.com/change-date-format-in-db-or-output-to-dd-mm-yyyy-in-php-mysql -->

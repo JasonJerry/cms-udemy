@@ -25,14 +25,18 @@
                     $post_title = $row['post_title'];
                     //echo "<li> <a href='#'> </a></li>";
                     $post_author = $row['post_author'];
-                    $post_date = $row['post_date'];
+                    $post_date = strtotime($row['post_date']); //working
+                    // $query = "SELECT date_format(post_date,'%d/%m/%Y') as DateFormat from posts ";
+                    // $convert_date = mysqli_query($connection, $query);
+                    // echo $post_date2 = $convert_date; Not needed causes error
+                    
                     $post_image = $row['post_image'];
                     $post_content = $row['post_content']; 
                     ?>
 
                 <h1 class="page-header">
-                    Page Heading
-                    <small>Secondary Text</small>
+                    Blog Content
+                    <small> </small>
                 </h1>
 
                 <!-- First Blog Post -->
@@ -42,8 +46,11 @@
                 <p class="lead">
                     by <a href="index.php"><?php echo $post_author; ?></a>
                 </p>
-                <p><span class="glyphicon glyphicon-time"></span><?php echo $post_date; ?></p>
+
+                <!-- Date in d/m/y -->
+                <p><span class="glyphicon glyphicon-time"></span><?php echo date('d/m/Y', $post_date); ?></p>
                 <hr>
+
                 <img class="img-responsive" src="images/<?php echo $post_image; ?>" alt="">
                 <hr>
                 <p><?php echo $post_content; ?></p>

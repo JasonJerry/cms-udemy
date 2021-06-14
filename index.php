@@ -12,9 +12,12 @@
             <div class="col-md-8">
             <?php 
 
-                $query = "SELECT * FROM posts" ;
+                $query = "SELECT * FROM posts where post_status = 'Published' " ;
                 $select_all_posts_query = mysqli_query($connection, $query);
-
+                $rows = mysqli_num_rows($select_all_posts_query);
+                
+                if ($rows > 0)
+                {
                 while ($row = mysqli_fetch_assoc($select_all_posts_query))
                 {
                     $post_title = $row['post_title'];
@@ -22,7 +25,7 @@
                     $post_id = $row['post_id'];
                     $post_title = $row['post_title'];
                     $post_author = $row['post_author'];
-                    $post_date = $row['post_date'];
+                    $post_date = strtotime($row['post_date']); //working
                     $post_image = $row['post_image'];
                     $post_content = substr($row['post_content'],0,250); 
 
@@ -30,22 +33,15 @@
                     $post_status = $row['post_status'];
                     
                     
-                    if($post_status !== 'Published')
-                    {   
-                        //echo "<h1>No Posts here at the moment!</h1>";
-                        break;
+                    
                         
-                    }
-                    else
-                    {
-
-
-                   
+                    
+                                       
                     ?>
 
                             <h1 class="page-header">
-                                Page Heading
-                                <small>Secondary Text</small>
+                                Blog Content
+                                <small> </small>
                             </h1>
 
                             <!-- First Blog Post -->
@@ -55,8 +51,11 @@
                             <p class="lead">
                                 by <a href="index.php"><?php echo $post_author; ?></a>
                             </p>
-                            <p><span class="glyphicon glyphicon-time"></span><?php echo $post_date; ?></p>
+                             <!-- Date in d/m/y -->
+                            <p><span class="glyphicon glyphicon-time"></span><?php echo date('d/m/Y', $post_date); ?></p>
                             <hr>
+
+
                             <a href="post.php?p_id=<?php echo $post_id; ?>">
                             <img class="img-responsive" src="images/<?php echo $post_image; ?>"  alt="">
                             </a>
@@ -67,6 +66,11 @@
                             <hr>
                         <?php
                 }  }
+
+                else
+                {
+                    echo "<h1>No Posts at the moment!</h1>";
+                }
                 ?>
                
             </div>
