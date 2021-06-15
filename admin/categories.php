@@ -15,7 +15,9 @@
                     <div class="col-lg-12">
                         <h1 class="page-header">
                             Welcome to Admin Panel
-                            <small>Jason</small>
+                            <small><?php 
+                                echo $_SESSION['username'];
+                            ?></small>
                         </h1>
                     
                             <div class="col-xs-6">

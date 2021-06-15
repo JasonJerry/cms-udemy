@@ -54,13 +54,19 @@
         if ($post_status == 'Approved')
         {
             echo "<td>";
-            echo '<span style="color:green;text-align:center;">APPROVED</span>';
+            echo '<b><span style="color:green;text-align:center;">APPROVED</span></b>';
             echo "</td>";
         }
         if ($post_status == 'Published')
         {
             echo "<td>";
-            echo '<span style="color:red;text-align:center;">PUBLISHED</span>';
+            echo '<b><span style="color:red;text-align:center;">PUBLISHED</span></b>';
+            echo "</td>";
+        }
+        if ($post_status == 'Draft')
+        {
+            echo "<td>";
+            echo '<b><span style="color:#a200ff;text-align:center;">DRAFT</span></b>';
             echo "</td>";
         }
         //echo "<td>{$post_status}</td>";
