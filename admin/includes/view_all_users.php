@@ -1,3 +1,5 @@
+
+
 <table class="table table-bordered table-hover">
     <thead>
         <tr>
@@ -7,7 +9,7 @@
             <th>Lastname</th>
             <th>Email</th>
             <th>Role</th> 
-            <th>ACTIONS</th>
+            <th colspan="4">ACTIONS</th>
             
             
         </tr>

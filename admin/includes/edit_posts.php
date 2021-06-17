@@ -65,6 +65,8 @@ if(isset(($_POST['update_post'])))
 
     confirmQuery($update_post);
 
+    echo "<p class='bg-success'>Post updated. <a href='../post.php?p_id={$the_post_id}'>View Post</a> or <a href='posts.php'>Edit more posts</a></p>";
+
 }
 
 
@@ -131,7 +133,7 @@ if(isset(($_POST['update_post'])))
     if($post_status == 'Published')
     {
         echo "<option value = 'Draft'>Draft</option>";
-        echo "<option value = 'Published'>Published</option>";
+        echo "<option value = 'Approved'>Approved</option>";
     }
     elseif($post_status == 'Approved')
     {

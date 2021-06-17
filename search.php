@@ -64,7 +64,7 @@
                     by <a href="index.php"><?php echo $post_author ?></a>
                 </p>
                  <!-- Date in d/m/y -->
-                 <p><span class="glyphicon glyphicon-time"></span><?php echo date('d/m/Y', $post_date); ?></p>
+                 <p><span class="glyphicon glyphicon-time"></span><?php echo date('d/F/Y', $post_date); ?></p>
                 <hr>
                 <img class="img-responsive" src="images/<?php echo $post_image;?>" alt="">
                 <hr>

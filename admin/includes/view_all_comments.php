@@ -29,7 +29,7 @@
         $comment_content     = $row['comment_content'];
         $comment_email       = $row['comment_email'];
         $comment_status      = $row['comment_status'];
-        $comment_date        = $row['comment_date'];
+        $comment_date        = strtotime($row['comment_date']);
 
         echo "<tr>";  
         echo "<td>{$comment_id}</td>"; 
@@ -53,10 +53,31 @@
 
         echo "<td>{$comment_email}</td>";
         //echo "<td><img width=200 src='../images/{$post_image}'></td>";
-    
-        echo "<td>{$comment_status}</td>";
-        echo "<td>{$comment_date}</td>";
+            
+        if ($comment_status == 'Unapproved')
+        {
+            echo "<td>";
+            echo '<b><span style="color:#ff00e8;text-align:center;">UNAPPROVED</span></b>';
+            echo "</td>";
+        }
+        elseif ($comment_status == 'Approved')
+        {
+            echo "<td>";
+            echo '<b><span style="color: green ;text-align:center;">APPROVED</span></b>';
+            echo "</td>";
+        }
+        else
+        {
+            echo "<td>{$comment_status}</td>";
+        }
 
+
+        //echo "<td>{$comment_status}</td>";
+
+
+        echo "<td>";
+        echo date('d/F/Y', $comment_date);
+        echo "</td>";
 
         $query = "SELECT * FROM posts WHERE post_id= $comment_post_id";
         $select_post_id_query = mysqli_query($connection,$query);
@@ -115,20 +136,15 @@ if(isset($_GET['unapprove']))
 
 
 
-
-
-
-
-
-
-
-
 if(isset($_GET['delete']))
 {
     $the_comment_id = $_GET['delete'];
     $query = "DELETE FROM comments WHERE comment_id = {$the_comment_id} ";
     $delete_query = mysqli_query($connection,$query);
-    //echo "<h3>The post of id $the_post_id was deleted successfully!</h3>";
+
+    $query = "UPDATE posts SET post_comment_count = post_comment_count -1 WHERE post_id = {$comment_post_id} ";
+    $delete_comm_count_query = mysqli_query($connection,$query);
+
     header("Location: comments.php");
     echo "<h3>The post of id $the_comment_id was deleted successfully!</h3>";
 }

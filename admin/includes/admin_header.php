@@ -4,14 +4,42 @@
 <?php include "functions.php"; ?>
 
 <?php
+//print_r ($_SESSION);
+// if(!isset($_SESSION['user_role']))
+// //if( isset($_SESSION['user_role']) && ($_SESSION['user_role']=='admin') && ($_SESSION['user_role']=='') && ($_SESSION['username']=='') && ($_SESSION['first_name']=='') && ($_SESSION['last_name']=='') )
+// //if( isset($_SESSION['user_role']) || ($_SESSION['user_role'] =='Admin') )
+// {
+//     if($_SESSION['user_role'] == 'Admin')
+//     {
+//         // header("Location: ../index.php");
+//         //header("Location: ../admin");
+//         echo $user_role = $_SESSION['user_role'];
+    
+//     }
+// }
+// else
+// {
+//     echo $user_role = $_SESSION['user_role'];
+//     //header("Location: ../admin");
+//     //header("Location: ../index.php");
+// }
 
-if(!isset($_SESSION['user_role']))
+// print_r ($_SESSION);
+// var_dump($_SESSION['user_role']);&& ($_SESSION['user_role']!=='admin') && ($_SESSION['user_role']=='')
+if( !isset($_SESSION['user_role']) || ($_SESSION['user_role']!=='Admin') || ($_SESSION['user_role']=='') )
 {
-    //if($_SESSION['user_role'] !== 'Admin')
-    header("Location: ../index.php");
+// if('admin'== $user_role)
+// die();
+header("Location: ../index.php");
+}
+else{
+    //var_dump($_SESSION);
+    // die();
 }
 
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -49,5 +77,12 @@ if(!isset($_SESSION['user_role']))
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 </head>
+<style>
+th {
+        /* border: 1px solid black; */
+        text-align: center;
+        padding: 8px;
+        }
+</style>
 
 <body>
