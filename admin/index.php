@@ -2,10 +2,13 @@
 
 <?php include "includes/admin_navigation.php" ?>
     <div id="wrapper">
-<?php if($connection)
+<?php /* if($connection)
 {
     //echo "works";
-} ?>
+}  */
+
+
+?>
         <!-- Navigation -->
         
 
@@ -18,14 +21,18 @@
                     <div class="col-lg-12">
                         <h1 class="page-header">
                             Welcome to Admin Panel
-
+                    <?php
+                   
+                    ?>
                             
                             <small><?php 
                                 echo $_SESSION['username'];
                             ?></small>
                         </h1>
-
-                     
+<h2>
+                        <?php 
+                                //echo $count_user;
+                            ?></h2>
                             
                     </div>
                 </div>
@@ -205,7 +212,7 @@ $subscriber_count = mysqli_num_rows($subscriber_query);
 
         <?php
 
-            $element_text  = ['Active Posts', 'Active Posts', 'Draft Posts', 'Comments', 'Pending Comments',  'Users', 'Subscriber', 'Categories'];
+            $element_text  = ['Post Count', 'Active Posts', 'Draft Posts', 'Comments', 'Pending Comments',  'Users', 'Subscriber', 'Categories'];
             $element_count  = [$post_count, $post_published_count ,$post_draft_count, $comment_count,$unapproved_count, $user_count, $subscriber_count,  $category_count];
 
             for($i = 0 ; $i < 8 ; $i++)

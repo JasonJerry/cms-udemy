@@ -26,12 +26,13 @@ if(isset($_POST['login']))
         $db_user_lastname = $row['user_lastname'];
         $db_user_role = $row['user_role'];
         $db_user_password = $row['user_password'];
+        //die();
 
     }
     // echo $db_username, $password, $db_user_password,$db_username;
 
 
-    //echo $password = crypt($password, $db_user_password);
+    $password = crypt($password, $db_user_password);
     //die();
 
 

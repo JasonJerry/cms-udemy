@@ -42,9 +42,16 @@ if(isset($_GET['edit_user'])){
             // $post_date     = date('d-m-y');
 
        
-      
+            $query = "SELECT randsalt from users ";
+            $select_randsalt_query = mysqli_query($connection, $query);
+            if(!$select_randsalt_query)
+            {
+                die("died at edit_user");
+            } 
+            $salt = '$2y$10$iusesomecrazystrings22';
+            $hashed_password = crypt($user_password, $salt);
 
-        if(!empty($user_password)) { 
+            if(!empty($user_password)) { 
 
             // $query_password = "SELECT user_password FROM users WHERE user_id =  $the_user_id";
             // $get_user_query = mysqli_query($connection, $query_password);
@@ -61,7 +68,7 @@ if(isset($_GET['edit_user'])){
             $query .="user_role   =  '{$user_role}', ";
             $query .="username = '{$username}', ";
             $query .="user_email = '{$user_email}', ";
-            $query .="user_password   = '{$user_password}' ";
+            $query .="user_password   = '{$hashed_password}' ";
             $query .= "WHERE user_id = {$the_user_id} ";
             $edit_user_query = mysqli_query($connection,$query);
             confirmQuery($edit_user_query);

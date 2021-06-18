@@ -15,7 +15,13 @@
                 if(isset($_GET['p_id']))
                 {
                     $the_post_id = $_GET['p_id'];
-                }
+                    $post_query = "UPDATE posts SET post_views_count = post_views_count +1 WHERE post_id = $the_post_id ";
+                    $update_post_view_count = mysqli_query($connection,$post_query);
+                    if(!$update_post_view_count)
+                    {
+                        echo $the_post_id;
+                        die("At post view count");
+                    }
 
                 $query = "SELECT * FROM posts WHERE post_id= '{$the_post_id}' " ;
                 $select_all_posts_query = mysqli_query($connection, $query);
@@ -57,7 +63,14 @@
                 
                 <hr>
                <?php
-                }
+                } 
+            }
+
+
+            else{
+
+                header("Location: index.php");
+            }
                 ?>
                
 
@@ -89,7 +102,7 @@
                         echo "<script>alert('Fields cannot be empty!')</script>";
                     }
                 }
-
+            
 
 
                 ?>

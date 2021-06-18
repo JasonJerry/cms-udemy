@@ -1,205 +1,155 @@
-<?php 
+<?php include "includes/header.php";  ?>
+<?php include "includes/db.php";  ?>
+    <!-- Navigation will be kept here from include -->
+    <?php include "includes/navigation.php";  ?>
 
-if(isset($_GET['edit_user']))
+    <!-- Page Content -->
+    <div class="container">
 
- $the_user_id = $_GET['edit_user'];
+        <div class="row">
 
- $query = "SELECT * FROM users WHERE user_id = $the_user_id";
- $select_users_query = mysqli_query($connection, $query);
- while ($row = mysqli_fetch_assoc($select_users_query))
- {
-     $user_id = $row['user_id'];
-     $username = $row['username'];
-     $user_password = $row['user_password'];
-     $user_firstname = $row['user_firstname'];
-     $user_lastname = $row['user_lastname'];
-     $user_email = $row['user_email'];
-     $user_role = $row['user_role'];
-
-}
+            <!-- Blog Entries Column -->
+            <div class="col-md-8">
+            <?php 
 
 
-if(isset($_POST['edit_user']))
+$session = session_id();
+$time = time();
+$time_out_in_seconds = 60;
+
+$time_out = $time - $time_out_in_seconds;
+
+$query = "SELECT * FROM users_online WHERE user_session = '$session' ";
+echo $send_query  = mysqli_query($connection,$query);
+
+echo $count = mysqli_num_rows($send_query);
+
+
+
+if($count == NULL)
 {
-   
-   // $user_id       = $_POST['user_id'];
-    $user_firstname         = $_POST['user_firstname'];
-    $user_lastname  = $_POST['user_lastname'];
-    $user_role       = $_POST['user_role'];
-
-    // $post_image        = $_FILES['image']['name'];
-    // $post_image_temp   = $_FILES['image']['tmp_name'];
-
-
-    $username         = $_POST['username'];
-    $user_email      = $_POST['user_email'];
-    $user_password      = $_POST['user_password'];
-   // $post_date         = date('d-m-y');
-    // $post_comment_count = 4;
-
-
-    // move_uploaded_file($post_image_temp, "../images/$post_image");
-
-    $query = "UPDATE users SET ";
-    $query .="user_firstname = '{$user_firstname}', ";
-    $query .="user_lastname = '{$user_lastname}', ";
-    $query .="user_role   =  '{$user_role}', ";
-    $query .="username = '{$username}', ";
-    $query .="user_email = '{$user_email}', ";
-    $query .="user_password   = '{$user_password}' ";
-  
-    $query .= "WHERE user_id = {$the_user_id} ";
-  
-    $edit_user_query = mysqli_query($connection,$query);
-
-
-    confirmQuery($edit_user_query);
-
-     
-
-
-
-
+    mysqli_query($connection, "INSERT INTO users_online(user_session, user_time) VALUES('{$session}', '{$time}') ");
+}
+else{
+    mysqli_query($connection, "INSERT INTO users_online SET user_time = '{$time}' WHERE user_session = '{$session}' ");
 }
 
+$users_online_query = mysqli_query($connection, "SELECT * FROM users_online WHERE user_time < '{$time_out}' ");
+
+$count_user = mysqli_num_rows($users_online_query);
+
+$per_page = 5;
+
+
+            if(isset($_GET['page'])){
+
+               
+
+              $page = $_GET['page'];
+            }
+            else{
+
+                $page = "";
+            }            
+
+            if($page == "" || $page ==1)
+            {
+                $page_1 = 0;
+
+            }else{
+                $page_1 = ($page * $per_page) - $per_page;
+            }
+
+
+                $post_query_count = "SELECT * FROM posts";
+                $find_count = mysqli_query($connection, $post_query_count);
+                $count = mysqli_num_rows($find_count);
+
+                $count = ceil($count / $per_page);
 
 
 
 
 
-?>
+
+                $query = "SELECT * FROM posts LIMIT $page_1, $per_page";
+                $select_all_posts_query = mysqli_query($connection, $query);
+
+                while ($row = mysqli_fetch_assoc($select_all_posts_query))
+                {
+                    $post_title = $row['post_title'];
+                    //echo "<li> <a href='#'> </a></li>";
+                    $post_id = $row['post_id'];
+                    $post_title = $row['post_title'];
+                    $post_author = $row['post_author'];
+                    $post_date = strtotime($row['post_date']);
+                    $post_image = $row['post_image'];
+                    $post_content = substr($row['post_content'],0,250); 
+                    $post_status = $row['post_status'];
+
+                    if($post_status !== 'Published'){
+                       
+                        
+                    }
+                    else{
+                    ?>
+
+                <h1 class="page-header">
+                    Page Heading
+                    <small>Secondary Text</small>
+                </h1>
+
+                <!-- First Blog Post -->
 
 
+<h1><?php echo $count; ?></h1>
 
-    <form action="" method="post" enctype="multipart/form-data">    
-     
+                <h2>
+                    <a href="post.php?p_id=<?php echo $post_id; ?>"><?php echo $post_title; ?></a>
+                </h2>
+                <p class="lead">
+                    by <a href="author_posts.php?author=<?php echo $post_author; ?>&p_id=<?php echo $post_id; ?>"><?php echo $post_author; ?></a>
+                </p>
+                <p><span class="glyphicon glyphicon-time"></span><?php echo date('d/m/y',$post_date); ?></p>
+                <hr>
+                <a href="post.php?p_id=<?php echo $post_id; ?>">
+                <img class="img-responsive" src="images/<?php echo $post_image; ?>"  alt="">
+                </a>
+                <hr>
+                <p><?php echo $post_content; ?></p>
+                 
+                <a class="btn btn-primary" href="post.php?p_id=<?php echo $post_id; ?>">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
 
+                <hr>
+               <?php
+                }}
+                ?>
+               
+            </div>
+            <!-- Blog Sidebar Widgets Column will be included-->
+            <?php include "includes/sidebar.php";  ?>
 
-     
-     <div class="form-group">
-        <label for="title">Firstname</label>
-         <input type="text" class="form-control" value="<?php echo $user_firstname ?>" name="user_firstname">
-     </div>
+        </div>
+        <!-- /.row -->
 
-
-     <div class="form-group">
-        <label for="title">Lastname</label>
-         <input type="text" class="form-control" value="<?php echo $user_lastname ?>" name="user_lastname">
-     </div> 
-
-
-     
-     <div class="form-group">
-       
-       <select name="user_role" id="">
-       
-    <option value="<?php echo $user_role; ?>"><?php echo $user_role; ?></option>
-       <?php 
-
-          if($user_role == 'Admin') {
-          
-             echo "<option value='Subscriber'>Subscriber</option>";
-          
-          } else {
-          
-            echo "<option value='Admin'>Admin</option>";
-          
-          }
-    
-      ?>
         
-       </select>
-       
-       
-       
-       
-      </div>
 
-        <!-- <div class="form-group">
-      <label for="category">Category</label>
-      <select name="post_category" id="">
-      </select>
+
       
-      </div> -->
+    </div>  
 
+        <ul class="pager">
+        <?php
+        for($i=1; $i <= $count; $i++){
+            if($i == $page){
 
+                echo "<li><a class='active_link' href='index.php?page={$i}'>{$i}</a></li>";
+            }else{
 
+            echo "<li><a href='index.php?page={$i}'>{$i}</a></li>";
+        }}
+        
+?>
+        </ul>
 
-
-     
-
-
-
-
-<!-- 
-     <div class="form-group">
-        <label for="title">Post Author</label>
-         <input type="text" class="form-control" name="post_author">
-     </div>  
-     
-     <div class="form-group">
-        <label for="title">Post Status</label>
-         <input type="text" class="form-control" name="post_status">
-     </div>   -->
-
-<!-- 
-      <div class="form-group">
-      <label for="users">Users</label>
-      <select name="post_user" id="">
-          
-          
-       
-      </select>
-     
-     </div> -->
-
-
-
-
-
-     <!-- <div class="form-group">
-        <label for="title">Post Author</label>
-         <input type="text" class="form-control" name="author">
-     </div> -->
-     
-     
-
-      <!-- <div class="form-group">
-        <select name="post_status" id="">
-            <option value="draft">Post Status</option>
-            <option value="published">Published</option>
-            <option value="draft">Draft</option>
-        </select>
-     </div> -->
-     
-     
-     
-   <!-- <div class="form-group">
-        <label for="post_image">Post Image</label>
-         <input type="file"  name="image">
-     </div> -->
-
-     <div class="form-group">
-        <label for="post_tags">Username</label>
-         <input type="text" class="form-control" value="<?php echo $username?>" name="username">
-     </div>
-     
-     <div class="form-group">
-        <label for="post_content">Email</label>
-        <input type="email" class="form-control" value="<?php echo $user_email ?>" name="user_email">
-     </div>
-     
-     
-     <div class="form-group">
-        <label for="post_content">Password</label>
-        <input type="password" class="form-control" value="<?php echo $user_password ?>" name="user_password">
-     </div>
-     
-
-      <div class="form-group">
-         <input class="btn btn-primary" type="submit" name="edit_user" value="Edit User">
-     </div>
-
-
-</form>
-   
+        <?php include "includes/footer.php";  ?>

@@ -86,12 +86,7 @@
         // }
 
         
-       
-
-
-
-
-
+    
         
         echo "<td><a href='users.php?change_to_admin={$user_id}' >Change as Admin</a></td>";
         echo "<td><a href='users.php?change_to_sub={$user_id}'>Change as Subscriber</a></td>";

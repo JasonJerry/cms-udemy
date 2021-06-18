@@ -49,7 +49,8 @@ if(isset($_POST['edit_user']))
    // $post_date         = date('d-m-y');
     // $post_comment_count = 4;
 
-
+    $salt = '$2y$10$iusesomecrazystrings22';
+    $hashed_password = crypt($user_password, $salt);
     // move_uploaded_file($post_image_temp, "../images/$post_image");
 
     $query = "UPDATE users SET ";
@@ -58,7 +59,7 @@ if(isset($_POST['edit_user']))
     $query .="user_role   =  '{$user_role}', ";
     $query .="username = '{$username}', ";
     $query .="user_email = '{$user_email}', ";
-    $query .="user_password   = '{$user_password}' ";
+    $query .="user_password   = '{$hashed_password}' ";
   
     $query .= "WHERE username = '{$username}' ";
   
