@@ -1,3 +1,26 @@
+<?php include "includes/admin_header.php" ?>
+<?php include "includes/admin_navigation.php" ?>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        
+
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                <!-- Blog Content -->
+                <div class="row">
+                    <div class="col-lg-12">
+                    <h1 class="page-header">
+                            Welcome to Admin Panel
+                            <small><?php 
+                                echo $_SESSION['username'];
+                            ?></small>
+                        </h1>
+
+
 <table class="table table-bordered table-hover">
     <thead>
         <tr>
@@ -19,7 +42,7 @@
     <?php  
     
     
-    $query = "SELECT * FROM comments";
+    $query = "SELECT * FROM comments WHERE comment_post_id =" . mysqli_real_escape_string($connection,$_GET['id']);
     $select_comments = mysqli_query($connection, $query);
     while ($row = mysqli_fetch_assoc($select_comments))
     {
@@ -36,21 +59,6 @@
         //echo "<td>{$comment_post_id}</td>"; 
         echo "<td>{$comment_author}</td>";
         echo "<td>{$comment_content}</td>";
-
-        // $query = "SELECT * FROM categories WHERE cat_id = {$post_category_id} ";
-                            
-        // $select_categories_id = mysqli_query($connection, $query);
-        // while ($row = mysqli_fetch_assoc($select_categories_id))
-        // {
-        //     $cat_id = $row['cat_id'];
-        //     $cat_title = $row['cat_title'];
-        
-
-        // echo "<td>{$cat_title}</td>";
-
-        // }
-
-
         echo "<td>{$comment_email}</td>";
         //echo "<td><img width=200 src='../images/{$post_image}'></td>";
             
@@ -71,10 +79,6 @@
             echo "<td>{$comment_status}</td>";
         }
 
-
-        //echo "<td>{$comment_status}</td>";
-
-
         echo "<td>";
         echo date('d/F/Y', $comment_date);
         echo "</td>";
@@ -89,19 +93,11 @@
             echo "<td><a href='../post.php?p_id=$post_id'>$post_title</a></td>";
         }
 
-        
-       
-
-
-
-
-
-        
-        echo "<td><button class='btn btn-success'> <a href='comments.php?approve=$comment_id' style='color:white;'>Approve</a></button></td>";
-        echo "<td><button class='btn btn-primary'><a href='comments.php?unapprove=$comment_id' style='color:white;'>Un Approve</a></button></td>";
+        echo "<td><button class='btn btn-success'> <a href='post_comments.php?approve=$comment_id&id=" . $_GET['id'] . " ' style='color:white;'>Approve</a></button></td>";
+        echo "<td><button class='btn btn-primary'><a href='post_comments.php?unapprove=$comment_id&id=" . $_GET['id'] . " ' style='color:white;'>Un Approve</a></button></td>";
         
         //echo "<td><a href='posts.php?source=edit_post&p_id='>Edit</a></td>";
-        echo "<td><button class='btn btn-danger'><a href='comments.php?delete=$comment_id' style='color:white;'>Delete</a></button></td>";
+        echo "<td><button class='btn btn-danger'><a href='post_comments.php?delete=$comment_id&id=" . $_GET['id'] . " ' style='color:white;'>Delete</a></button></td>";
         echo "</tr>"; 
     }
     
@@ -118,7 +114,7 @@ if(isset($_GET['approve']))
     $query = "UPDATE comments SET comment_status = 'Approved' WHERE comment_id = $the_comment_id ";
     $approve_comment_query = mysqli_query($connection,$query);
     //echo "<h3>The post of id $the_post_id was deleted successfully!</h3>";
-    header("Location: comments.php");
+    header("Location: post_comments.php?id=" . $_GET['id'] . "");
     echo "<h3>The comment of id $the_comment_id was approved successfully!</h3>";
 }
 
@@ -129,7 +125,7 @@ if(isset($_GET['unapprove']))
     $query = "UPDATE comments SET comment_status = 'Unapproved'  WHERE comment_id = $the_comment_id ";
     $unapprove_comment_query = mysqli_query($connection,$query);
     //echo "<h3>The post of id $the_post_id was deleted successfully!</h3>";
-    header("Location: comments.php");
+    header("Location: post_comments.php?id=" . $_GET['id'] . "");
     echo "<h3>The comment of id $the_comment_id was unapproved successfully!</h3>";
 }
 
@@ -145,8 +141,23 @@ if(isset($_GET['delete']))
     $query = "UPDATE posts SET post_comment_count = post_comment_count -1 WHERE post_id = {$comment_post_id} ";
     $delete_comm_count_query = mysqli_query($connection,$query);
 
-    header("Location: comments.php");
+    header("Location: post_comments.php?id=" . $_GET['id'] . "");
     echo "<h3>The post of id $the_comment_id was deleted successfully!</h3>";
 }
 
 ?>
+
+
+
+</div>
+                </div>
+                <!-- /.row -->
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
+
+   
+<?php include "includes/admin_footer.php" ?>

@@ -77,15 +77,15 @@ $per_page = 5;
 
                 while ($row = mysqli_fetch_assoc($select_all_posts_query))
                 {
-                    $post_title = $row['post_title'];
+                    $post_title = escape($row['post_title']);
                     //echo "<li> <a href='#'> </a></li>";
-                    $post_id = $row['post_id'];
-                    $post_title = $row['post_title'];
-                    $post_author = $row['post_author'];
+                    $post_id = escape($row['post_id']);
+                    $post_title = escape($row['post_title']);
+                    $post_author = escape($row['post_author']);
                     $post_date = strtotime($row['post_date']);
-                    $post_image = $row['post_image'];
+                    $post_image = escape($row['post_image']);
                     $post_content = substr($row['post_content'],0,250); 
-                    $post_status = $row['post_status'];
+                    $post_status = escape($row['post_status']);
 
                     if($post_status !== 'Published'){
                        

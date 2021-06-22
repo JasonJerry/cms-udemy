@@ -63,7 +63,7 @@ if(isset($_POST['checkBoxArray']))
                         $post_image = $row['post_image'];
                         $post_tags = $row['post_tags'];
                         $post_comment_count = $row['post_comment_count'];
-                        $post_date = strtotime($row['post_date']); // converted to mm/dd/yyyy 
+                        $post_date = strtotime($row['post_date']); // converted to dd/mm/yyyy 
                         $post_content =$row['post_content'];
                         
 
@@ -125,7 +125,7 @@ if(isset($_POST['checkBoxArray']))
         <tr>
             <th><input id="selectAllBoxes" type="checkbox"></th>
             <th>ID</th>
-            <th>Author</th>
+            <th>User</th>
             <th>Title</th>
             <th>Category</th>
             <th>Status</th>
@@ -149,6 +149,7 @@ if(isset($_POST['checkBoxArray']))
     {
         $post_id = $row['post_id'];
         $post_author = $row['post_author'];
+        $post_user = $row['post_user'];
         $post_title = $row['post_title'];
         $post_category_id = $row['post_category_id'];
         $post_status = $row['post_status'];
@@ -163,8 +164,29 @@ if(isset($_POST['checkBoxArray']))
         <td><input class='checkBoxes' type='checkbox' name='checkBoxArray[]' value='<?php echo $post_id; ?>'></td>
         <?php
         //echo "";
-        echo "<td>{$post_id}</td>"; 
-        echo "<td>{$post_author}</td>";
+        
+        echo "<td>$post_id </td>";
+
+
+        if(!empty($post_author)) {
+
+             echo "<td>$post_author</td>";
+
+
+        } elseif(!empty($post_user)) {
+
+            echo "<td>$post_user</td>";
+
+
+        }
+
+        //echo "<td>{$post_author}</td>";
+
+
+
+
+
+
         echo "<td><b><span style='color:crimson'>{$post_title}</b></span></td>";
 
         $query = "SELECT * FROM categories WHERE cat_id = {$post_category_id} ";
@@ -202,15 +224,39 @@ if(isset($_POST['checkBoxArray']))
         
         echo "<td><img width=200 src='../images/{$post_image}'></td>";
         echo "<td>{$post_tags}</td>";
-        echo "<td>{$post_comment_count}</td>";
+
+
+
+
+        $query = "SELECT * FROM comments WHERE comment_post_id = $post_id ";
+        $send_comment_query =  mysqli_query($connection,$query);
+
+        $row = mysqli_fetch_array($send_comment_query);
+        
+            $comment_id = $row['comment_id'];
+            $count_comments = mysqli_num_rows($send_comment_query);
+           
+        
+
+        echo "<td><a href='post_comments.php?id=$post_id'>{$count_comments}</a></td>";
+        
+
+
+        
+
+
+
+
+
+
 
         echo "<td>";
         echo date('d/F/Y', $post_date);
         echo "</td>";
         //echo "<td>{$post_date}</td>";
-        echo "<td><a href='posts.php?reset={$post_id}'>{$post_views_count}</a></td>";
+        echo "<td><a  href='posts.php?reset={$post_id}' >{$post_views_count}</a></td>";
 
-
+        //<button class='btn btn-success'>  style='color:white;'  </button>
 
         echo "<td><b><a href='../post.php?p_id={$post_id}'>View Post</a></b></td>";
         echo "<td><b><a href='posts.php?source=edit_post&p_id={$post_id}'>Edit</a></b></td>";

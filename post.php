@@ -20,7 +20,7 @@
                     if(!$update_post_view_count)
                     {
                         echo $the_post_id;
-                        die("At post view count");
+                        die("At post");
                     }
 
                 $query = "SELECT * FROM posts WHERE post_id= '{$the_post_id}' " ;
@@ -94,9 +94,11 @@
                         if (!$create_comment_query) {
                             die('QUERY FAILED in post.php create comment' . mysqli_error($connection));
                         }
-                        $query = "UPDATE posts SET post_comment_count = post_comment_count +1 WHERE post_id = $the_post_id ";
+
+                        
+                        /* $query = "UPDATE posts SET post_comment_count = post_comment_count +1 WHERE post_id = $the_post_id ";
                         $update_comment_count = mysqli_query($connection,$query);
-                        echo "<h3>Your comment is in queue for approval from the admin!</h3>";
+                        echo "<h3>Your comment is in queue for approval from the admin!</h3>"; */
                     }
                     else{
                         echo "<script>alert('Fields cannot be empty!')</script>";

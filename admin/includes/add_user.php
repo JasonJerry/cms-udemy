@@ -6,12 +6,14 @@ if(isset($_POST['create_user']))
 {
 
    //$user_id = $_POST['user_id'];
-   $user_firstname    = $_POST['user_firstname'];
-   $user_lastname     =$_POST['user_lastname'];
-   $user_role         = $_POST['user_role'];
-   $username          = $_POST['username'];
-   $user_email        = $_POST['user_email'];
-   $user_password     = $_POST['user_password'];
+   $user_firstname    = escape($_POST['user_firstname']);
+   $user_lastname     = escape($_POST['user_lastname']);
+   $user_role         = escape($_POST['user_role']);
+   $username          = escape($_POST['username']);
+   $user_email        = escape($_POST['user_email']);
+   $user_password     = escape($_POST['user_password']);
+
+   $user_password = password_hash($user_password, PASSWORD_DEFAULT, array('cost' => 10)); // bigger the cost number slower the algo work
 
     // move_uploaded_file($post_image_temp, "../images/$post_image");
    $query = "SELECT * FROM users WHERE user_email = '$user_email' "; //checking for same email

@@ -12,7 +12,8 @@ if(isset($_GET['edit_user'])){
     $query = "SELECT * FROM users WHERE user_id = $the_user_id ";
     $select_users_query = mysqli_query($connection,$query);  
 
-      while($row = mysqli_fetch_assoc($select_users_query)) {
+      while($row = mysqli_fetch_assoc($select_users_query)) 
+      {
 
           $user_id        = $row['user_id'];
           $username       = $row['username'];
@@ -28,39 +29,44 @@ if(isset($_GET['edit_user'])){
    if(isset($_POST['edit_user'])) {
        
             
-            $user_firstname   = $_POST['user_firstname'];
-            $user_lastname    = $_POST['user_lastname'];
-            $user_role        = $_POST['user_role'];
+            $user_firstname   = escape($_POST['user_firstname']);
+            $user_lastname    = escape($_POST['user_lastname']);
+            $user_role        = escape($_POST['user_role']);
     
            // $post_image = $_FILES['image']['name'];
            // $post_image_temp = $_FILES['image']['tmp_name'];
     
     
-            $username      = $_POST['username'];
-            $user_email    = $_POST['user_email'];
-            $user_password = $_POST['user_password'];
+            $username      = escape($_POST['username']);
+            $user_email    = escape($_POST['user_email']);
+            $user_password = escape($_POST['user_password']);
             // $post_date     = date('d-m-y');
 
        
-            $query = "SELECT randsalt from users ";
-            $select_randsalt_query = mysqli_query($connection, $query);
-            if(!$select_randsalt_query)
-            {
-                die("died at edit_user");
-            } 
-            $salt = '$2y$10$iusesomecrazystrings22';
-            $hashed_password = crypt($user_password, $salt);
+            // $query = "SELECT randsalt from users ";
+            // $select_randsalt_query = mysqli_query($connection, $query);
+            // if(!$select_randsalt_query)
+            // {
+            //     die("died at edit_user");
+            // } 
+            // $salt = '$2y$10$iusesomecrazystrings22';
+            // $hashed_password = crypt($user_password, $salt);
 
             if(!empty($user_password)) { 
 
-            // $query_password = "SELECT user_password FROM users WHERE user_id =  $the_user_id";
-            // $get_user_query = mysqli_query($connection, $query_password);
-            // confirmQuery($get_user_query);
+            $query_password = "SELECT user_password FROM users WHERE user_id =  $the_user_id";
+            $get_user_query = mysqli_query($connection, $query_password);
+            confirmQuery($get_user_query);
 
-            // $row = mysqli_fetch_array($get_user_query);
+            $row = mysqli_fetch_array($get_user_query);
 
-            //echo $user_password = $row['user_password'];
+            $db_user_password = $row['user_password'];
+            if($db_user_password != $user_password) 
+            {
 
+                $hashed_password = password_hash($user_password, PASSWORD_BCRYPT, array('cost' => 12));
+    
+            }
 
             $query = "UPDATE users SET ";
             $query .="user_firstname  = '{$user_firstname}', ";
@@ -150,7 +156,7 @@ if(isset($_GET['edit_user'])){
       
       <div class="form-group">
          <label for="post_content">Password</label>
-          <input type="password" value="<?php echo $user_password; ?>" class="form-control" name="user_password">
+          <input autocomplete="off" type="password" class="form-control" name="user_password">
       </div>
       
       

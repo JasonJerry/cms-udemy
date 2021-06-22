@@ -32,7 +32,7 @@
                     // echo $post_date2 = $convert_date; Not needed causes error
                     
                     $post_image = $row['post_image'];
-                    $post_content = $row['post_content']; 
+                    $post_content = $row['post_content'];
                     ?>
 
                 <h1 class="page-header">

@@ -32,11 +32,12 @@ if(isset($_POST['login']))
     // echo $db_username, $password, $db_user_password,$db_username;
 
 
-    $password = crypt($password, $db_user_password);
+    //$password = crypt($password, $db_user_password);
     //die();
 
 
-    if($username === $db_username && $password === $db_user_password)
+    //if($username === $db_username && $password === $db_user_password)
+    if(password_verify($password, $db_user_password))
     {
 
         $_SESSION['username'] = $db_username;

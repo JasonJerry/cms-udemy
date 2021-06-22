@@ -21,12 +21,15 @@
             $email = mysqli_real_escape_string($connection, $email);
             $password =  mysqli_real_escape_string($connection, $password);
 
-            $query = "SELECT randsalt from users ";
-            $select_randsalt_query = mysqli_query($connection, $query);
-            if(!$select_randsalt_query)
-            {
-                die("died at registration");
-            }
+            $password = password_hash($password, PASSWORD_DEFAULT, array('cost' => 10)); // bigger the cost number slower the algo work
+
+
+            // $query = "SELECT randsalt from users ";
+            // $select_randsalt_query = mysqli_query($connection, $query);
+            // if(!$select_randsalt_query)
+            // {
+            //     die("died at registration");
+            // }
 
             //while created for encrypt - blowfish
             // while($row = mysqli_fetch_array($select_randsalt_query))
@@ -36,8 +39,8 @@
             // }
 
             //$row = mysqli_fetch_array($select_randsalt_query);
-            $salt = '$2y$10$iusesomecrazystrings22';
-            $password = crypt($password, $salt);
+            // $salt = '$2y$10$iusesomecrazystrings22';
+            // $password = crypt($password, $salt);
 
             $query = "INSERT INTO users(username, user_firstname, user_lastname, user_email, user_password , user_role) ";              
             $query .= "VALUES('{$username}', '{$user_firstname}', '{$user_lastname}', '{$email}', '{$password}', 'Subscriber') ";               

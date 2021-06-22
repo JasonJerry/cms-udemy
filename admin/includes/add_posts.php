@@ -3,10 +3,11 @@
 if(isset($_POST['create_post']))
 {
    
-    $post_title        = $_POST['title'];
-    $post_author         = $_POST['post_author'];
-    $post_category_id  = $_POST['post_category'];
-    $post_status       = $_POST['post_status'];
+    $post_title        = escape($_POST['title']);
+    $post_author         = escape($_POST['post_author']);
+    //$post_user = $_POST['post_user'];
+    $post_category_id  = escape($_POST['post_category']);
+    $post_status       = escape($_POST['post_status']);
 
     $post_image        = $_FILES['image']['name'];
     $post_image_temp   = $_FILES['image']['tmp_name'];
@@ -68,6 +69,7 @@ if(isset($_POST['create_post']))
 
 
       <div class="form-group">
+      <label for="post_cat">Post Category</label>
        <select name="post_category" id="post_category">
        
        <?php 
@@ -95,10 +97,37 @@ if(isset($_POST['create_post']))
 
 
 
-     <div class="form-group">
+     <!-- <div class="form-group">
         <label for="title">Post Author</label>
          <input type="text" class="form-control" name="post_author">
-     </div>  
+     </div>   -->
+
+
+
+     <div class="form-group">
+      <label for="postauthor">User</label>
+       <select name="post_author" id="postauthor">
+       
+       <?php 
+       
+       $user_query = "SELECT * FROM users" ;
+       $select_users = mysqli_query($connection, $user_query);
+
+       confirmQuery($select_users);
+
+           while ($row = mysqli_fetch_assoc($select_users))
+           {
+               $user_id = $row['user_id']; 
+               $username = $row['username'];
+
+               echo "<option value = '{$username}'>{$username}</option>";
+
+       
+           }
+       ?>
+       </select>
+     </div>               
+
 
      <div class="form-group">
          <select name="post_status" id="">

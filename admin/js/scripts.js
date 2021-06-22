@@ -50,7 +50,7 @@ $('#load-screen').delay(700).fadeOut(600, function(){
         $.get("functions.php?onlineusers=result", function(data){
 
             $(".usersonline").text(data);
-
+  
 
         });
 

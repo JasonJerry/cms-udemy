@@ -88,10 +88,10 @@
         
     
         
-        echo "<td><a href='users.php?change_to_admin={$user_id}' >Change as Admin</a></td>";
-        echo "<td><a href='users.php?change_to_sub={$user_id}'>Change as Subscriber</a></td>";
-        echo "<td><a href='users.php?source=edit_user&edit_user={$user_id}'>Edit</a></td>";
-        echo "<td><b><a href='users.php?delete={$user_id}' style='color:red';>Delete</a></b></td>";
+        echo "<td><button class='btn btn-success'><a href='users.php?change_to_admin={$user_id}' style='color:white;'>Change as Admin</a></button></td>";
+        echo "<td><button class='btn btn-primary'><a href='users.php?change_to_sub={$user_id}' style='color:white;'>Change as Subscriber</a></button></td>";
+        echo "<td><button class='btn btn-warning'><a href='users.php?source=edit_user&edit_user={$user_id}' style='color:white;'>Edit</a></button></td>";
+        echo "<td><button class='btn btn-danger'><b><a href='users.php?delete={$user_id}' style='color:white';>Delete</a></b></button></td>";
         echo "</tr>";
     }
     
@@ -127,14 +127,18 @@ if(isset($_GET['change_to_sub'])){
 }
 
 
-if(isset($_GET['delete']))
-{
-    $the_user_id = $_GET['delete'];
-    $query = "DELETE FROM users WHERE user_id = {$the_user_id} ";
-    $delete_query = mysqli_query($connection,$query);
-    //echo "<h3>The post of id $the_post_id was deleted successfully!</h3>";
-    header("Location: users.php");
-    echo "<h3>The post of id $the_user_id was deleted successfully!</h3>";
+
+if(isset($_GET['delete'])){
+    if(isset($_SESSION['user_role'])) 
+    {
+        if($_SESSION['user_role'] == 'Admin')
+        {
+        $the_user_id = $_GET['delete'];
+        $query = "DELETE FROM users WHERE user_id = {$the_user_id} ";
+        $delete_user_query = mysqli_query($connection, $query);
+        header("Location: users.php");
+        }   
+    }
 }
 
 ?>
