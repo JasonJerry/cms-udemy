@@ -68,14 +68,64 @@
                     </ul>
                 </li>
             </ul>
+
+
+<?php
+                        $post_class = '';
+                        $dash_class = '';
+                        $cat_class = '';
+
+                        $comment_class = '';
+
+                        $user_class = '';
+
+                        $profile_class = '';
+
+                        $pageName = basename($_SERVER['PHP_SELF']);
+                        $cat = 'categories.php';
+                        $post = 'posts.php';
+                        $dash = 'index.php';
+                        $comm = 'comments.php';
+                        $prof = 'profile.php';
+                        $user = 'users.php';
+                        if($pageName == $cat)
+                        {
+                            $cat_class = 'active';
+                        }
+
+                        elseif($pageName == $comm)
+                        {
+                            $comment_class = 'active';
+                        }
+
+                        elseif($pageName == $prof)
+                        {
+                            $profile_class = 'active';
+                        }
+
+                        elseif($pageName == $dash)
+                        {
+                            $dash_class = 'active';
+                        }
+                        elseif($pageName == $post)
+                        {
+                            $post_class = 'active';
+                        }
+                        elseif($pageName == $user)
+                        {
+                            $user_class = 'active';
+                        }
+                        //echo "<li class='$category_class'> <a href='category.php?category={$cat_id}'> {$cat_title}</a></li>";
+
+                        ?>
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
-                    <li class="active">
+                    <li class="<?php echo $dash_class; ?>">
                         <a href="index.php"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
                     
-                    <li>
+                    <li class="<?php echo $post_class; ?>">
                         <a href="javascript:;" data-toggle="collapse" data-target="#posts_dropdown"><i class="fa fa-fw fa-arrows-v"></i> Posts <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="posts_dropdown" class="collapse">
                             <li>
@@ -86,7 +136,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li>
+                    <li class="<?php echo $cat_class; ?>">
                         <a href="./categories.php"><i class="fa fa-fw fa-wrench"></i> Categories</a>
                     </li>
                     <!-- <li>
@@ -100,10 +150,10 @@
                             </li>
                         </ul>
                     </li> -->
-                    <li >
+                    <li class="<?php echo $comment_class; ?>">
                         <a href="./comments.php"><i class="fa fa-fw fa-file"></i> Comments</a>
                     </li>
-                    <li>
+                    <li class="<?php echo $user_class; ?>">
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Users <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo" class="collapse">
                             <li>
@@ -114,7 +164,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li>
+                    <li class="<?php echo $profile_class; ?>">
                         <a href="profile.php"><i class="fa fa-fw fa-dashboard"></i> Profile</a>
                     </li>
                 </ul>

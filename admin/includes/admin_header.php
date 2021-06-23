@@ -77,6 +77,9 @@ else{
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
+    
+           <!-- jQuery -->
+    <script src="js/jquery.js"></script>
 </head>
 <style>
 th {

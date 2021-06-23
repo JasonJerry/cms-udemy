@@ -1,33 +1,72 @@
 <?php
 
-// Inheritance with access modifier
-class Adobe {
-  public $name;
-  public $color;
-  public function __construct($name, $color) { //construcotr
-    $this->name = $name;
-    $this->color = $color;
-  }
-  protected function intro() {
-    echo "The fruit is {$this->name} and the color is {$this->color}.";
-  }
+class Adobe 
+{
+    
+    public $premier = "Premier"; // Can be used anywhere
+    protected $photoshop = "Photoshop";// only available inside class or sub-classes or methods
+    private $illustrator = "Illustrator"; // Only available inside the class
+    
+    var $aftereffects = "After Effects";
+    function showAdobe()
+    {
+      echo $this->premier . " Public Inside Adobe Class <br> ";
+      echo $this->photoshop . " Protected Inside Adobe Class<br>";
+      echo $this->illustrator . " Private Inside Adobe Class<br>";
+  
+    } 
 }
 
-class Magento extends Adobe {
-  public function message() {
-    echo "Am I a fruit or a berry? ";
-  }
+$adobe = new Adobe();
+$magento = new Magento();
+
+class Magento extends Adobe 
+{
+    
+      function showMagento()
+      {
+        echo $this->premier . " Public  inside Magento Class<br>"; 
+        echo $this->photoshop . " Protected  inside Magento Class <br>";
+        echo $this->illustrator . " private  inside Magento Class <br>"; //private not access outside class ERROR
+    } 
+
 }
+echo $adobe->showAdobe(); //calling adobe class
+echo $magento->showMagento(); //calling magento class
+echo $magento->premier . " Public  Outside all class" ;
+echo $magento->photoshop . " protected  Outside all class" ;   // ERROR cannot call protected outside class
 
-// Try to call all three methods from outside class
-$Magento = new Magento("Magento", 2.4);  // OK. __construct() is public
-$Magento->message(); // OK. message() is public
+//echo $semi->showProperty1(); //protected
+
+// class Adobe {
+  
+//   public $name;
+  
+//   public function run() {
+//       echo $this->name. " is runing...<br/>";
+//   }
+  
+//   public function working() {
+//       echo $this->name. " is working...<br/>";
+//   }
+// }
 
 
-try {
-    throw new Exception("An error occurred");
-  } catch(Exception $Magento) {
-    echo $Magento->getMessage();
-  }
-// $strawberry->intro();  ERROR. intro() is protected
+// class Magento extends Adobe {
+ 
+// }
+
+
+// class MagentoOpenSource extends Adobe {
+ 
+// }
+
+// $Magento = new Magento();
+// $Magento->name = "Magento";
+
+// $MagentoOpenSource = new MagentoOpenSource();
+// $MagentoOpenSource->name = "Adobe Commerce";
+
+// $MagentoOpenSource->run();
+// $Magento->working();
 ?>
