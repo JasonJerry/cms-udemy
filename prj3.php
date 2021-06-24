@@ -1,8 +1,22 @@
 <html>
 <body>
+<style>
+        table {
+        font-family: arial, sans-serif;
+        /* border-collapse: collapse; */
+        width: 'auto';
+        
+        }
+
+        td, th {
+        /* border: 1px solid black; */
+        /* align-content: center; */
+        /* text-align: center; */
+        padding: 8px;
+        }
+        </style>
 <?php
-
-
+//include "includes/header.php";
 $connection = mysqli_connect('localhost', 'root', '', 'test');
 
 if(isset($_POST['submit']))
@@ -26,8 +40,6 @@ if(isset($_POST['submit']))
    
     }
 }
-
-
 
 //submit tiny
 
@@ -60,9 +72,6 @@ if(isset($_POST['submittiny']))
     }
 }
 
-
-
-
 //submit small
 
 if(isset($_POST['submitsmall']))
@@ -83,17 +92,19 @@ if(isset($_POST['submitsmall']))
       echo "<br>";
       echo "Value in db of smallint:";
       echo $smallint = $row['smallint_val'];
-
       echo "<br>";
-      // echo "Given value = $smallint_value";
 
-      // echo "<br>";
-      // echo "Value in db of smallint:";
-      // echo $smallint = $row['smallint_val'];
-   
     }
 }
 ?>
+
+<table>
+
+    <tr>
+        <td>
+            <table>
+                <tr>
+                    <td>
 
 
 <section id="login">
@@ -113,7 +124,6 @@ if(isset($_POST['submitsmall']))
                      
                         <!-- <input type="submit" name="submit" id="btn-login" class="btn btn-custom btn-lg btn-block" value="Register"> -->
                     </form>
-
 <!-- tiny -->
 
                     <form role="form" action="" method="post" id="login-form" autocomplete="off">
@@ -126,7 +136,6 @@ if(isset($_POST['submitsmall']))
                            </div>
                            <br>
                        </form>
-
 
 <!-- smallint -->
 
@@ -149,7 +158,83 @@ if(isset($_POST['submitsmall']))
         </div> <!-- /.row -->
     </div> <!-- /.container -->
 </section>
+</td>
+                </tr>
 
+
+                <!-- table 1 ends here -->
+                
+            </table>
+        </td>
+        
+        
+        
+        <td text-align: center;>
+<table style="width:80%" class="table2">
+<div class="title">
+
+
+
+                    <!-- table 2 goes here  -->
+
+
+
+
+                    <section id="student-form">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-6 col-xs-offset-3">
+                <div class="form-wrap">
+                <h1>Student Info</h1>
+                    <form role="form" action="" method="post" id="login-form" autocomplete="on">
+                       
+                    <div class="form-group">
+                            <label for="int" class="sr-only"> </label>
+                            <input type="text" name="int" id="int" class="form-control" placeholder="Enter Integer (11)">
+                            <button type="submit" name="submit" id="btn-login" class="btn btn-custom btn-lg btn-block" value="Register">Submit</button>
+                        </div>
+                        <br>
+                     
+                        <!-- <input type="submit" name="submit" id="btn-login" class="btn btn-custom btn-lg btn-block" value="Register"> -->
+                
+                       
+   
+                           <div class="form-group">
+                               <label for="tinyint" class="sr-only"></label>
+                               <input type="text" name="tinyint" id="tinyint" class="form-control" placeholder="Enter Tinyint (4)">
+                               <button type="submit" name="submittiny" id="btn-login" class="btn btn-custom btn-lg btn-block" value="Register">Submit</button>
+                           </div>
+                           <br>
+                      
+                       
+   
+                      
+
+                       <div class="form-group">
+                           <label for="smallint" class="sr-only"></label>
+                           <input type="text" name="smallint" id="smallint" class="form-control" placeholder="Enter smallint (6)">
+                           <button type="submit" name="submitsmall" id="btn-login" class="btn btn-custom btn-lg btn-block" value="Register">Submit</button>
+                       </div>
+                    
+                       <br>
+                   </form>
+
+                </div>
+            </div> <!-- /.col-xs-12 -->
+        </div> <!-- /.row -->
+    </div> <!-- /.container -->
+</section>
+
+
+
+
+
+                    </td>
+                <!-- </tr> -->
+            </table>
+        </td>
+    </tr>
+</table>
 
 </body>
 

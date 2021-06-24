@@ -3,7 +3,7 @@
 class Adobe 
 {
     
-    public $premier = "Premier"; // Can be used anywhere
+    public $premier = "Premier"; // can be used anywhere
     protected $photoshop = "Photoshop";// only available inside class or sub-classes or methods
     private $illustrator = "Illustrator"; // Only available inside the class
     
@@ -17,9 +17,6 @@ class Adobe
     } 
 }
 
-$adobe = new Adobe();
-$magento = new Magento();
-
 class Magento extends Adobe 
 {
     
@@ -28,9 +25,14 @@ class Magento extends Adobe
         echo $this->premier . " Public  inside Magento Class<br>"; 
         echo $this->photoshop . " Protected  inside Magento Class <br>";
         echo $this->illustrator . " private  inside Magento Class <br>"; //private not access outside class ERROR
-    } 
+      } 
 
 }
+
+
+$adobe = new Adobe();
+$magento = new Magento();
+
 echo $adobe->showAdobe(); //calling adobe class
 echo $magento->showMagento(); //calling magento class
 echo $magento->premier . " Public  Outside all class" ;

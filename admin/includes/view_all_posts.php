@@ -143,8 +143,8 @@ if(isset($_POST['checkBoxArray']))
     <tbody>
     <?php  
     
-    
-    $query = "SELECT * FROM posts ORDER BY post_id DESC ";
+    $query = "SELECT * FROM posts LEFT JOIN categories ON posts.post_category_id = categories.cat_id ORDER BY post_id DESC ";
+    // $query = "SELECT * FROM posts ORDER BY post_id DESC ";
     $select_posts = mysqli_query($connection, $query);
     while ($row = mysqli_fetch_assoc($select_posts))
     {
@@ -160,6 +160,10 @@ if(isset($_POST['checkBoxArray']))
         $post_date = strtotime($row['post_date']); // converted to mm/dd/yyyy 
         $post_content =$row['post_content'];
         $post_views_count =$row['post_views_count'];
+
+
+        $cat_id = $row['cat_id'];
+        $cat_title = $row['cat_title'];
         echo "<tr>";  
         ?>
         <td><input class='checkBoxes' type='checkbox' name='checkBoxArray[]' value='<?php echo $post_id; ?>'></td>
@@ -190,18 +194,18 @@ if(isset($_POST['checkBoxArray']))
 
         echo "<td><b><span style='color:crimson'>{$post_title}</b></span></td>";
 
-        $query = "SELECT * FROM categories WHERE cat_id = {$post_category_id} ";
+        // $query = "SELECT * FROM categories WHERE cat_id = {$post_category_id} ";
                             
-        $select_categories_id = mysqli_query($connection, $query);
-        while ($row = mysqli_fetch_assoc($select_categories_id))
-        {
-            $cat_id = $row['cat_id'];
-            $cat_title = $row['cat_title'];
+        // $select_categories_id = mysqli_query($connection, $query);
+        // while ($row = mysqli_fetch_assoc($select_categories_id))
+        // {
+        //     $cat_id = $row['cat_id'];
+        //     $cat_title = $row['cat_title'];
         
 
         echo "<td>{$cat_title}</td>";
 
-        }
+        // }
 
         if ($post_status == 'Approved')
         {
@@ -234,7 +238,7 @@ if(isset($_POST['checkBoxArray']))
 
         $row = mysqli_fetch_array($send_comment_query);
         
-            $comment_id = $row['comment_id'];
+            //$comment_id = $row['comment_id'];
             $count_comments = mysqli_num_rows($send_comment_query);
            
         
@@ -259,9 +263,26 @@ if(isset($_POST['checkBoxArray']))
 
         //<button class='btn btn-success'>  style='color:white;'  </button>
 
-        echo "<td><b><a href='../post.php?p_id={$post_id}'>View Post</a></b></td>";
-        echo "<td><b><a href='posts.php?source=edit_post&p_id={$post_id}'>Edit</a></b></td>";
-        echo "<td><b><a rel='$post_id'  class='delete_link' href='javascript:void(0)'>Delete</a></b></td>";
+        echo "<td><b><a class='btn btn-primary' href='../post.php?p_id={$post_id}'>View Post</a></b></td>";
+        echo "<td><b><a class='btn btn-info' href='posts.php?source=edit_post&p_id={$post_id}'>Edit</a></b></td>";
+?>
+
+        <form method="post">
+
+                    <input type="hidden" name="post_id" value="<?php echo $post_id ?>">
+
+                <?php   
+
+                    echo '<td><input class="btn btn-danger" type="submit" name="delete" value="Delete"></td>';
+
+                ?>
+
+
+        </form>
+
+
+<?php
+        //echo "<td><b><a rel='$post_id'  class='delete_link' href='javascript:void(0)'>Delete</a></b></td>";
         // echo "<td><b><a onclick=\"javascript: return confirm('Sure to delete?'); \" href='posts.php?delete={$post_id}' style='color:red'>Delete</a></b></td>";
         echo "</tr>"; 
     }
@@ -273,16 +294,16 @@ if(isset($_POST['checkBoxArray']))
 </table>
 </form>
 <?php
-if(isset($_GET['delete']))
-{
-    $the_post_id = $_GET['delete'];
+if(isset($_POST['delete'])){
+    
+    $the_post_id = escape($_POST['post_id']);
+    
     $query = "DELETE FROM posts WHERE post_id = {$the_post_id} ";
-    $delete_query = mysqli_query($connection,$query);
-    //echo "<h3>The post of id $the_post_id was deleted successfully!</h3>";
-    header("Location: posts.php");
-    echo "<h3>The post of id $the_post_id was deleted successfully!</h3>";
+    $delete_query = mysqli_query($connection, $query);
+    header("Location: /cms/admin/posts.php");
+    
+    
 }
-
 
 
 

@@ -14,6 +14,8 @@
                 if(isset($_GET['category']))
                 {
                     $post_category_id = $_GET['category'];
+
+                    
                 
                     $query = "SELECT * FROM posts WHERE post_category_id = $post_category_id AND post_status = 'Published' " ;
                     $select_all_posts_query = mysqli_query($connection, $query);
