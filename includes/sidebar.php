@@ -50,7 +50,7 @@
 
              <h4>Login</h4>
 
-             <form action="includes/login.php" method="post">
+             <form action="login.php" method="post">
             <div class="form-group">
                 <input name="username" placeholder="Username" type="text" class="form-control">
                 

@@ -7,6 +7,54 @@ function redirect($location)
 
 }
 
+
+function ifItIsMethod($method=null){
+
+    if($_SERVER['REQUEST_METHOD'] == strtoupper($method)){
+
+        return true;
+
+    }
+
+    return false;
+
+}
+
+
+function isLoggedIn(){
+
+    if(isset($_SESSION['user_role'])){
+
+        
+        return true;
+
+
+    }
+
+    else{
+
+        // echo "lg";
+        // die();
+        return false;
+    }
+
+}
+
+function checkIfUserIsLoggedInAndRedirect($redirectLocation=null){
+
+    if(isLoggedIn()){
+        // echo "noooooo";
+        // die();
+
+        redirect($redirectLocation);
+
+    }
+
+}
+
+
+
+
 function escape($string)
 {
     global $connection;
@@ -237,6 +285,7 @@ function register_user($username, $email, $password, $user_firstname, $user_last
 
 function login_user($username, $password)
 {
+    
     global $connection;
 
      $username = trim($username);
@@ -259,7 +308,8 @@ function login_user($username, $password)
      {
 
         $db_user_id = $row['user_id'];
-        $db_username = $row['username'];
+        $db_username = $row['username']; //checked working
+        // die("@functions loginuser while");
         $db_user_password = $row['user_password'];
         $db_user_firstname = $row['user_firstname'];
         $db_user_lastname = $row['user_lastname'];
@@ -268,19 +318,27 @@ function login_user($username, $password)
 
         if (password_verify($password,$db_user_password)) 
         {
-
-            $_SESSION['username'] = $db_username;
+            // echo $_SESSION['username'];
+            // die("@functions loginuser pass_verify");
+            $_SESSION['username'] = $db_username; //not working--empty!
+            // die("@functions loginuser pass_verify"); problem is here so it breaks
             $_SESSION['firstname'] = $db_user_firstname;
             $_SESSION['lastname'] = $db_user_lastname;
             $_SESSION['user_role'] = $db_user_role;
-        // header("Location: ../admin"); //not use admin.php its just admin
+        //header("Location: ../admin"); //not use admin.php its just admin
 
             redirect("/cms/admin");
        
         }
         else
         {
-            redirect("index.php");
+            // echo "ddddddd";
+            // die();
+            // header("Location: ../index.php");
+            // echo "it here";
+            // die();
+            redirect("../index.php");
+            
         }
     }
 }

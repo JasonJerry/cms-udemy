@@ -251,11 +251,11 @@ if(isset($_POST['submitunsigned']))
         
     </div><br>
 
-    <div class="input-group">
+    <!-- <div class="input-group">
     <label for="temp">Temp</label><br>
         <input name="temp" type="text" placeholder="signedint" class="form-control">
         
-    </div><br>
+    </div><br> -->
 
 
     <div class="input-group">
@@ -275,6 +275,7 @@ if(isset($_POST['submitstudent'])){
     
 
     $username = $_POST['stuname'];
+    //die();
     $regno    = $_POST['regno'];
    
     $dob =  $_POST['dob'];
@@ -284,7 +285,7 @@ if(isset($_POST['submitstudent'])){
     
     // die();
             
-    $query = "INSERT INTO datatypes(name, smallint_val, date_val, float_val, ) ";              
+    $query = "INSERT INTO datatypes(name, smallint_val, date_val, float_val ) ";              
     $query .= "VALUES('{$username}', {$regno}, '{$dob}' , {$percent}) ";        
     $add_query = mysqli_query($connection,$query);
 
@@ -314,27 +315,21 @@ if(isset($_POST['submitstudent'])){
             
             echo "<tr>";
 
-            // echo "<td>";
+          
             echo "<td>{$namestu}</td>";
-            // echo "</td>";
+           
         
-            // echo "<td>";
+           
             echo "<td>{$regstu}</td>";
-            // echo "</td>";
+           
 
             echo "<td>";
             echo date('d/F/Y', $dobstu);
             echo "</td>";
 
-            // echo "<td>";
+           
             echo "<td>{$percentstu}</td>";
-            // echo "</td>";
-
-            // echo "<td>";
-            // echo "<td>{$tempstu}</td>";
-            // echo "</td>";
-
-
+           
 
 
             echo "</tr>";

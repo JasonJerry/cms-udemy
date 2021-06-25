@@ -25,17 +25,36 @@
 // }
 
 // print_r ($_SESSION);
-// var_dump($_SESSION['user_role']);&& ($_SESSION['user_role']!=='admin') && ($_SESSION['user_role']=='')
+// var_dump($_SESSION['user_role']) && ($_SESSION['user_role']!=='admin') && ($_SESSION['user_role']=='');
+
+// die("died in admin header1");
 if( !isset($_SESSION['user_role']) || ($_SESSION['user_role']!=='Admin') || ($_SESSION['user_role']=='') )
 {
+    // echo "dead @ admin header2";
+    // die();
 // if('admin'== $user_role)
 // die();
-header("Location: ../index.php");
+header("Location: /cms/index");
 }
 else{
     //var_dump($_SESSION);
     // die();
 }
+
+
+
+
+/*
+if(isset($_SESSION['user_role'])) {
+
+
+
+} else {
+
+header("location: ../index.php");
+
+
+}*/
 
 ?>
 
