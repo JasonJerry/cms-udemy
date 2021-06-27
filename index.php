@@ -10,34 +10,43 @@
 
             <!-- Blog Entries Column -->
             <div class="col-md-8">
+            <h1 class="page-header">
+                    Blog Posts
+                    <small></small>
+                </h1>
             <?php 
 
+//prblm in pagination
+            $per_page = 3;
 
-$per_page = 5;
+
+            if(isset($_GET['page'])) {
 
 
-            if(isset($_GET['page'])){
+            $page = $_GET['page'];
 
-               
+            } else {
 
-              $page = $_GET['page'];
-            }
-            else{
 
                 $page = "";
-            }            
-
-            if($page == "" || $page ==1)
-            {
-                $page_1 = 0;
-
-            }else{
-                $page_1 = ($page * $per_page) - $per_page;
-                
             }
 
+
+            if($page == "" || $page == 1) {
+
+                $page_1 = 0;
+
+            } else {
+
+                $page_1 = ($page * $per_page) - $per_page;
+
+            }
+            
+            $per_page; //0
+            // echo $page_1; //3
+            // die();
             if($_SESSION['user_role'] == 'Admin'){
-                $post_query_count = "SELECT * FROM posts";
+                $post_query_count = "SELECT * FROM posts "; // 0,5 
 
                 // echo "ss";
                 // die();
@@ -52,7 +61,8 @@ $per_page = 5;
 
                 
                 $find_count = mysqli_query($connection, $post_query_count);
-                $count = mysqli_num_rows($find_count);
+                $count = mysqli_num_rows($find_count); //5
+                
 
                 if($count < 1){
 
@@ -60,18 +70,35 @@ $per_page = 5;
                     echo "NO POSTS";
                 }
                else{
+                   
                 $count = ceil($count / $per_page);
+                
+                
                
 
-            
+                if($_SESSION['user_role'] == 'Admin'){
+                    $query = "SELECT * FROM posts LIMIT $page_1, $per_page "; // 0,5 
+    
+                    // echo "ss";
+                    // die();
+    
+                }
+                else{
+                    $query = "SELECT * FROM posts WHERE post_status = 'Published' LIMIT $page_1, $per_page  ";
+                    
+                }
+
+
+                
 
 
 
-
-
-
-                $query = "SELECT * FROM posts LIMIT $page_1, $per_page";
+                // $query = "SELECT * FROM posts LIMIT $page_1, $per_page";
                 $select_all_posts_query = mysqli_query($connection, $query);
+
+
+
+
 
                 while ($row = mysqli_fetch_assoc($select_all_posts_query))
                 {
@@ -96,10 +123,7 @@ $per_page = 5;
                     
                     ?>
 
-                <h1 class="page-header">
-                    Blog Posts
-                    <small></small>
-                </h1>
+               
 
                 <!-- First Blog Post -->
 
@@ -112,7 +136,7 @@ $per_page = 5;
                 <p class="lead">
                     by <a href="author_posts.php?author=<?php echo $post_author; ?>&p_id=<?php echo $post_id; ?>"><?php echo $post_author; ?></a>
                 </p>
-                <p><span class="glyphicon glyphicon-time"></span><?php echo date('d/m/y',$post_date); ?></p>
+                <p><span class="glyphicon glyphicon-time"></span><?php echo date('d/F/y',$post_date); ?></p>
                 <hr>
                 <a href="/cms/post/<?php echo $post_id; ?>">
                 <img class="img-responsive" src="/cms/images/<?php echo $post_image; ?>"  alt="">
@@ -136,19 +160,21 @@ $per_page = 5;
 
         
 
-
+<hr>
       
     </div>  
 
         <ul class="pager">
         <?php
+        
         for($i=1; $i <= $count; $i++){
             if($i == $page){
+               
 
                 echo "<li><a class='active_link' href='index.php?page={$i}'>{$i}</a></li>";
             }else{
-
-            echo "<li><a href='index.php?page={$i}'>{$i}</a></li>";
+                // echo "hi";
+                echo "<li><a href='index.php?page={$i}'>{$i}</a></li>";
         }}
         
 ?>
