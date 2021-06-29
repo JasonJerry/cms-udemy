@@ -36,18 +36,13 @@
         //echo "<td>{$comment_post_id}</td>"; 
         echo "<td>{$username}</td>";
         echo "<td>{$user_firstname}</td>";
-
-        // $query = "SELECT * FROM categories WHERE cat_id = {$post_category_id} ";
-                            
+        // $query = "SELECT * FROM categories WHERE cat_id = {$post_category_id} ";                  
         // $select_categories_id = mysqli_query($connection, $query);
         // while ($row = mysqli_fetch_assoc($select_categories_id))
         // {
         //     $cat_id = $row['cat_id'];
         //     $cat_title = $row['cat_title'];
-        
-
         // echo "<td>{$cat_title}</td>";
-
         // }
         
         
@@ -77,7 +72,6 @@
         }
         // $query = "SELECT * FROM posts WHERE post_id= $comment_post_id";
         // $select_post_id_query = mysqli_query($connection,$query);
-
         // while($row = mysqli_fetch_assoc($select_post_id_query))
         // {
         //     $post_id = $row['post_id'];

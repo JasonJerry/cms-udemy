@@ -51,12 +51,10 @@
                             include "includes/edit_user.php";
                             break;
 
-                            case '200';
-                            echo "Nice 200";
-                            break;
+                           
 
                             default:
-                            include "includes/view_all_users.php";
+                            include "includes/view_all_users.php"; // shows view all users
                             break;
                        }
 

@@ -11,19 +11,18 @@
             <!-- Blog Entries Column -->
             <div class="col-md-8">
             <h1 class="page-header">
-                    Blog Posts
-                    <small></small>
+                    Blog Posts<small></small>
                 </h1>
             <?php 
 
-//prblm in pagination
+//prblm in pagination solved
             $per_page = 3;
 
 
             if(isset($_GET['page'])) {
 
 
-            $page = $_GET['page'];
+           $page = $_GET['page'];
 
             } else {
 
@@ -42,10 +41,11 @@
 
             }
             
-            $per_page; //0
+            //$per_page; //0
             // echo $page_1; //3
             // die();
-            if($_SESSION['user_role'] == 'Admin'){
+            
+            if(isset($_SESSION['username']) && $_SESSION['user_role'] == 'Admin'){
                 $post_query_count = "SELECT * FROM posts "; // 0,5 
 
                 // echo "ss";
@@ -56,6 +56,7 @@
                 $post_query_count = "SELECT * FROM posts WHERE post_status = 'Published' ";
                 
             }
+             
 
 
 
@@ -76,7 +77,7 @@
                 
                
 
-                if($_SESSION['user_role'] == 'Admin'){
+                if(isset($_SESSION['username']) && $_SESSION['user_role'] == 'Admin'){
                     $query = "SELECT * FROM posts LIMIT $page_1, $per_page "; // 0,5 
     
                     // echo "ss";

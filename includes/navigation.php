@@ -38,6 +38,8 @@
                         $registration_class = '';
 
                         $pageName = basename($_SERVER['PHP_SELF']);
+                        // echo $pageName;
+                        // die;
                         $registration = 'registration.php';
 
                         if(isset($_GET['category']) && $_GET['category'] == $cat_id)

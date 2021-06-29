@@ -44,13 +44,13 @@
 
              <h4>Logged in as <?php echo $_SESSION['username'] ?></h4>
             
-             <a href="includes/logout.php" class="btn btn-primary">Logout</a>
+             <a href="/cms/includes/logout.php" class="btn btn-primary">Logout</a>
 
         <?php else: ?>
 
              <h4>Login</h4>
 
-             <form action="login.php" method="post">
+             <form action="/cms/login.php" method="post">
             <div class="form-group">
                 <input name="username" placeholder="Username" type="text" class="form-control">
                 
@@ -61,6 +61,11 @@
                 <button class="btn btn-primary" name="login" type="submit">Login</button>
                 </span>
             </div>
+<div class="form-group">
+
+<a href="forgot.php?forgot=<?php echo uniqid(true); ?>">Forgot Password</a>
+</div>
+
             </form> 
                 <!-- /.input-group -->
 
@@ -88,7 +93,7 @@ $select_categories_sidebar = mysqli_query($connection, $query);
                 $cat_title = $row['cat_title'];
                 $cat_id = $row['cat_id'];
                 //echo "<li><a href='category.php?category=$cat_id'>{$cat_title}</a></li>";
-                echo "<li><a href='category.php?category=$cat_id'>{$cat_title}</a></li>";
+                echo "<li><a href='cms/category/$cat_id'>{$cat_title}</a></li>";
 
             }
         ?>

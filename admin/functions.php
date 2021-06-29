@@ -326,20 +326,14 @@ function login_user($username, $password)
             $_SESSION['lastname'] = $db_user_lastname;
             $_SESSION['user_role'] = $db_user_role;
         //header("Location: ../admin"); //not use admin.php its just admin
-
             redirect("/cms/admin");
-       
         }
-        else
+        else 
         {
-            // echo "ddddddd";
-            // die();
-            // header("Location: ../index.php");
-            // echo "it here";
-            // die();
-            redirect("../index.php");
-            
+            return false;
         }
     }
+    return true;
+
 }
 ?>
