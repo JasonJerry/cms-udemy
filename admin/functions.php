@@ -336,4 +336,63 @@ function login_user($username, $password)
     return true;
 
 }
+
+
+
+function currentUser()
+{
+    if(isset($_SESSION['username']))
+    {
+        return $_SESSION['username'];
+
+    }
+    else
+    {
+        return false;
+    }
+}
+
+
+function imagePlaceholder($image='')
+{
+    if(!$image)
+    {
+        return 'lambo_1.jpg';
+    }
+    else
+    {
+        return $image;
+    }
+}
+function query($query){
+    global $connection;
+    return mysqli_query($connection, $query);
+}
+
+function loggedInUserId(){
+    if(isLoggedIn()){
+        $result = query("SELECT * FROM users WHERE username='" . $_SESSION['username'] ."'");
+        confirmQuery($result);
+        $user = mysqli_fetch_array($result);
+        return mysqli_num_rows($result) >= 1 ? $user['user_id'] : false;
+    }
+    return false;
+
+}
+
+function getPostlikes($post_id){
+
+    $result = query("SELECT * FROM likes WHERE post_id=$post_id");
+    confirmQuery($result);
+    echo mysqli_num_rows($result);
+
+}
+
+function userLikedThisPost($post_id){
+    $result = query("SELECT * FROM likes WHERE user_id=" .loggedInUserId() . " AND post_id={$post_id}");
+    confirmQuery($result);
+    return mysqli_num_rows($result) >= 1 ? true : false;
+}
+
+
 ?>
