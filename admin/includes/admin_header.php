@@ -27,8 +27,8 @@
 // print_r ($_SESSION);
 // var_dump($_SESSION['user_role']) && ($_SESSION['user_role']!=='admin') && ($_SESSION['user_role']=='');
 
-// die("died in admin header1");
-if( !isset($_SESSION['user_role']) || ($_SESSION['user_role']!=='Admin') || ($_SESSION['user_role']=='') )
+// die("died in admin header1"); // || ($_SESSION['user_role']!=='Admin')
+if( !isset($_SESSION['user_role'])  || ($_SESSION['user_role']=='') )
 {
     // echo "dead @ admin header2";
     // die();
